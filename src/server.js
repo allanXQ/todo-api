@@ -3,6 +3,8 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const sequelize = require("./config/database");
+const User = require("./models/user");
+const Todo = require("./models/todo");
 
 const app = express();
 
