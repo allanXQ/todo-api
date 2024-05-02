@@ -2,15 +2,18 @@ require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const sequelize = require("./config/database");
+const { sequelize } = require("./config");
 const User = require("./models/user");
 const Todo = require("./models/todo");
+const { errorHandler } = require("./middleware");
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
