@@ -5,6 +5,7 @@ const {
   generateTokens,
   setCookies,
 } = require("./authUtils/cookie");
+const responses = require("./responseHandler");
 
 module.exports = {
   logger,
@@ -12,4 +13,5 @@ module.exports = {
   clearTokens,
   generateTokens,
   setCookies,
+  ...responses,
 };

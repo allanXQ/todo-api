@@ -1,5 +1,10 @@
 const { clearTokens, logger } = require("../utils");
 const { messages } = require("../config");
+const {
+  sendServerError,
+  sendUnauthorized,
+  sendBadRequest,
+} = require("../utils");
 
 // General error handling middleware
 const errorHandler = (error, req, res, next) => {
@@ -10,11 +15,12 @@ const errorHandler = (error, req, res, next) => {
         stack: error.stack,
         name: error.name,
       });
-      return res.status(400).json({ message: error.message, type: error.name });
+      return sendBadRequest(res, error.message, error.name);
     case "TokenExpiredError":
       //check if route is logout then clear cookies
       const { path } = req.route;
       if (path === "/api/v1/auth/logout") {
+        //this should not be an error
         clearTokens(res);
       }
       logger.error(error.message, {
@@ -22,7 +28,7 @@ const errorHandler = (error, req, res, next) => {
         stack: error.stack,
         name: error.name,
       });
-      return res.status(401).json({ message: messages.tokenExpired });
+      return sendUnauthorized(res, messages.tokenExpired);
 
     case "RefreshTokenExpiredError":
       logger.error(error.message, {
@@ -30,7 +36,7 @@ const errorHandler = (error, req, res, next) => {
         stack: error.stack,
         name: error.name,
       });
-      return res.status(401).json({ message: messages.refreshTokenExpired });
+      return sendUnauthorized(res, messages.tokenExpired);
 
     default:
       logger.error(error.message, {
@@ -38,7 +44,7 @@ const errorHandler = (error, req, res, next) => {
         stack: error.stack,
         name: error.name,
       });
-      return res.status(500).json({ message: messages.serverError });
+      return sendServerError(res, messages.serverError);
   }
 };
 
