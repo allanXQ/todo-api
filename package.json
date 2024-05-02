@@ -2,9 +2,10 @@
   "name": "todo-api",
   "version": "1.0.0",
   "description": "A RESTful API for a todo list application",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "author": "Allan Juma",
   "license": "ISC",
