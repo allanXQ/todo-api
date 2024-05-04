@@ -6,6 +6,7 @@ const {
   setCookies,
 } = require("./authUtils/cookie");
 const responses = require("./responseHandler");
+const sendEmail = require("./sendMail");
 
 module.exports = {
   logger,
@@ -14,4 +15,5 @@ module.exports = {
   generateTokens,
   setCookies,
   ...responses,
+  sendEmail,
 };
