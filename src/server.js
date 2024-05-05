@@ -5,6 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const { sequelize, messages } = require("./config");
 const { errorHandler, rateLimiter } = require("./middleware");
+const { logger } = require("./utils");
 
 const app = express();
 
@@ -13,8 +14,9 @@ app.use(cors());
 app.use(express.json());
 app.use(rateLimiter);
 
-app.use("/api/v1/auth", require("./routes/auth"));
-app.use("/api/v1/todos", require("./routes/todo"));
+app.use("/api/v1/auth", require("@routes/auth"));
+app.use("/api/v1/todos", require("@routes/todo"));
+
 app.use("*", (req, res) => {
   res.status(404).json({ message: messages.notFound });
 });
@@ -22,23 +24,46 @@ app.use("*", (req, res) => {
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
+let server;
 
 function startServer() {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  server = app.listen(PORT, () => {
+    logger.info(`Server is running on port ${PORT}`);
   });
+}
+
+async function gracefulShutdown(signal) {
+  logger.info(`Received ${signal}, initiating graceful shutdown...`);
+
+  server.close(() => {
+    logger.info("Closed remaining connections.");
+  });
+
+  try {
+    await sequelize.close();
+    logger.info("Database connection closed.");
+
+    process.exit(0);
+  } catch (err) {
+    logger.error("Error during shutdown:", err);
+    process.exit(1);
+  }
 }
 
 sequelize
   .authenticate()
   .then(() => {
-    console.log("Database connection has been established successfully.");
+    logger.info("Database connection established successfully.");
     return sequelize.sync({ alter: true });
   })
   .then(() => {
-    console.log("Database synced");
+    logger.info("Database synced.");
     startServer();
   })
   .catch((err) => {
-    console.error("Unable to connect to the database:", err);
+    logger.error("Unable to connect to the database:", err);
   });
+
+["SIGINT", "SIGTERM"].forEach((signal) => {
+  process.on(signal, () => gracefulShutdown(signal));
+});
