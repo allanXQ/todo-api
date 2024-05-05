@@ -48,7 +48,7 @@ const getTodos = async (req, res) => {
   );
 };
 const updateTodo = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
   const { title, description } = req.body;
   const todo = await Todo.findByPk(id);
   if (!todo) {
@@ -63,7 +63,7 @@ const updateTodo = async (req, res) => {
 };
 
 const deleteTodo = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
   const todo = await Todo.findByPk(id);
   if (!todo) {
     return sendError(res, messages.todoNotFound, 404);
