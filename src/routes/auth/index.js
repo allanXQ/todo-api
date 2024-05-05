@@ -1,21 +1,23 @@
-const router = require("express").Router();
-const { verifyjwt, formValidate } = require("../../middleware");
-const {
+import Router from "express";
+import { formValidate } from "../../middleware";
+import {
   login,
   register,
   resetPassword,
   forgotPassword,
   refreshToken,
   logout,
-} = require("../../controllers/auth");
-const {
+} from "../../controllers/auth";
+import {
   regSchema,
   loginSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
-} = require("../../yupschemas");
+} from "../../yupschemas";
 
-const { errorHOC } = require("../../utils");
+import { errorHOC } from "../../utils";
+
+const router = Router();
 
 // routes
 router.post("/register", formValidate(regSchema), errorHOC(register));
