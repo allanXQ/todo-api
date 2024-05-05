@@ -22,6 +22,12 @@ User.init(
     sequelize,
     modelName: "User",
     timestamps: true,
+    indexes: [
+      {
+        unique: true,
+        fields: ["email"],
+      },
+    ],
     paranoid: true,
   }
 );

@@ -22,6 +22,12 @@ Todo.init(
   {
     sequelize,
     modelName: "Todo",
+    indexes: [
+      {
+        unique: true,
+        fields: ["title", "userId"],
+      },
+    ],
     timestamps: true,
   }
 );
