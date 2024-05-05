@@ -1,8 +1,8 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
-const { User } = require("@models");
-const { messages } = require("@config");
-const { generateTokens, setCookies } = require("@utils");
+const { User } = require("../../models");
+const { messages } = require("../../config");
+const { generateTokens, setCookies } = require("../../utils");
 
 const refreshToken = async (req, res) => {
   const { refreshToken } = req.cookies;

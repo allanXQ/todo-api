@@ -1,6 +1,6 @@
-const { messages } = require("@config");
-const { Todo } = require("@models");
-const { sendSuccess } = require("@utils");
+const { messages } = require("../../config");
+const { Todo } = require("../../models");
+const { sendSuccess, sendNotFound } = require("../../utils");
 
 const addTodo = async (req, res) => {
   const { title, description } = req.body;
@@ -52,7 +52,7 @@ const updateTodo = async (req, res) => {
   const { title, description } = req.body;
   const todo = await Todo.findByPk(id);
   if (!todo) {
-    return sendError(res, messages.todoNotFound, 404);
+    return sendNotFound(res, messages.todoNotFound, 404);
   }
 
   todo.title = title || todo.title;

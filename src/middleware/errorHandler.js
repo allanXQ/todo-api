@@ -1,6 +1,10 @@
-const { clearTokens, logger } = require("@utils");
-const { messages } = require("@config");
-const { sendServerError, sendUnauthorized, sendBadRequest } = require("@utils");
+const { clearTokens, logger } = require("../utils");
+const { messages } = require("../config");
+const {
+  sendServerError,
+  sendUnauthorized,
+  sendBadRequest,
+} = require("../utils");
 
 const errorHandler = (error, req, res, next) => {
   switch (error.name) {

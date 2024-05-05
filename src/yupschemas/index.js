@@ -1,5 +1,5 @@
 const yup = require("yup");
-const { messages } = require("@config");
+const { messages } = require("../config");
 
 const passwordRegexp =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;

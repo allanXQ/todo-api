@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const { User } = require("@models");
-const { messages } = require("@config");
+const { User } = require("../../models");
+const { messages } = require("../../config");
 
 function generateApiKey() {
   return require("crypto").randomBytes(16).toString("hex");

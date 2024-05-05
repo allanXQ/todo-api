@@ -1,21 +1,19 @@
-const Router = require("express").Router;
-const { formValidate } = require("@middleware");
+const router = require("express").Router();
+const { formValidate } = require("../../middleware");
 const {
   addTodo,
   getTodos,
   updateTodo,
   deleteTodo,
-} = require("@controllers/todos");
+} = require("../../controllers/todos");
 const {
   addTodoSchema,
   updateTodoSchema,
   getTodosSchema,
   deleteTodoSchema,
-} = require("@yupschemas");
+} = require("../../yupschemas");
 
-const { errorHOC } = require("@utils");
-
-const router = Router();
+const { errorHOC } = require("../../utils");
 
 router.post("/add", formValidate(addTodoSchema), errorHOC(addTodo));
 router.get("/", formValidate(getTodosSchema), errorHOC(getTodos));

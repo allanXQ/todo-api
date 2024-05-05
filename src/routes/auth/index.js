@@ -1,5 +1,5 @@
-const { Router } = require("express");
-const { formValidate } = require("@middleware");
+const router = require("express").Router();
+const { formValidate } = require("../../middleware");
 const {
   login,
   register,
@@ -7,16 +7,14 @@ const {
   forgotPassword,
   refreshToken,
   logout,
-} = require("@controllers/auth");
+} = require("../../controllers/auth");
 const {
   regSchema,
   loginSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
-} = require("@yupschemas");
-const { errorHOC } = require("@utils");
-
-const router = Router();
+} = require("../../yupschemas");
+const { errorHOC } = require("../../utils");
 
 router.post("/register", formValidate(regSchema), errorHOC(register));
 router.post("/login", formValidate(loginSchema), errorHOC(login));
