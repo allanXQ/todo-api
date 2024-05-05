@@ -19,14 +19,14 @@ const errorHandler = (error, req, res, next) => {
       //check if route is logout then clear cookies
       const { path } = req.route;
       if (path === "/api/v1/auth/logout") {
-        //this should not be an error
         clearTokens(res);
+      } else {
+        logger.error(error.message, {
+          metadata: error,
+          stack: error.stack,
+          name: error.name,
+        });
       }
-      logger.error(error.message, {
-        metadata: error,
-        stack: error.stack,
-        name: error.name,
-      });
       return sendUnauthorized(res, messages.tokenExpired);
 
     case "RefreshTokenExpiredError":
