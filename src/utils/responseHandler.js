@@ -11,7 +11,7 @@ const sendSuccess = (res, data, message = "Success") => {
 };
 
 const sendBadRequest = (res, message = "Bad Request", type) => {
-  sendResponse(res, 400, null, message, type);
+  sendResponse(res, 400, null, message, type || "BadRequest");
 };
 
 const sendServerError = (res, message = "Error") => {
