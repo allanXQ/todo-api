@@ -7,42 +7,31 @@ const {
 } = require("../utils");
 
 const errorHandler = (error, req, res, next) => {
+  const logContext = {
+    metadata: error,
+    stack: error.stack,
+    name: error.name,
+    method: req.method,
+    url: req.originalUrl,
+    userId: req.userId || "Unauthenticated",
+  };
+
   switch (error.name) {
     case "YupValidationError":
-      logger.error(error.message, {
-        metadata: error,
-        stack: error.stack,
-        name: error.name,
-      });
+      logger.error(error.message, logContext);
       return sendBadRequest(res, error.message, error.name);
     case "TokenExpiredError":
-      //check if route is logout then clear cookies
       const { path } = req.route;
       if (path === "/api/v1/auth/logout") {
         clearTokens(res);
-      } else {
-        logger.error(error.message, {
-          metadata: error,
-          stack: error.stack,
-          name: error.name,
-        });
       }
+      logger.error(error.message, logContext);
       return sendUnauthorized(res, messages.tokenExpired);
-
     case "RefreshTokenExpiredError":
-      logger.error(error.message, {
-        metadata: error,
-        stack: error.stack,
-        name: error.name,
-      });
+      logger.error(error.message, logContext);
       return sendUnauthorized(res, messages.tokenExpired);
-
     default:
-      logger.error(error.message, {
-        metadata: error,
-        stack: error.stack,
-        name: error.name,
-      });
+      logger.error(error.message, logContext);
       return sendServerError(res, messages.serverError);
   }
 };
