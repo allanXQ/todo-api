@@ -28,7 +28,6 @@ router.post(
   formValidate(resetPasswordSchema),
   errorHOC(resetPassword)
 );
-router.post("/refresh-token", errorHOC(refreshToken));
 router.post("/logout", errorHOC(logout));
 
 module.exports = router;
