@@ -4,13 +4,14 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const { sequelize, messages } = require("./config");
-const { errorHandler } = require("./middleware");
+const { errorHandler, rateLimiter } = require("./middleware");
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use(rateLimiter);
 
 app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/todos", require("./routes/todo"));
