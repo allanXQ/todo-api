@@ -1,6 +1,20 @@
 const { messages } = require("../../config");
 const { Todo } = require("../../models");
-const { sendSuccess, sendNotFound } = require("../../utils");
+const { sendSuccess, sendBadRequest } = require("../../utils");
+const { Sequelize } = require("sequelize");
+
+const findTodoById = async (id, res) => {
+  const todo = await Todo.findByPk(id);
+  if (!todo) {
+    sendBadRequest(res, messages.todoNotFound);
+    return null;
+  }
+  return todo;
+};
+
+const generateTodoFilter = (filter) => {
+  return filter ? { title: { [Sequelize.Op.like]: `%${filter}%` } } : {};
+};
 
 const addTodo = async (req, res) => {
   const { title, description } = req.body;
@@ -23,11 +37,7 @@ const getTodos = async (req, res) => {
   const limit = parseInt(pageSize);
   const offset = (page - 1) * limit;
 
-  const where = filter
-    ? {
-        title: { [Sequelize.Op.like]: `%${filter}%` },
-      }
-    : {};
+  const where = generateTodoFilter(filter);
 
   const todos = await Todo.findAndCountAll({
     where,
@@ -44,16 +54,15 @@ const getTodos = async (req, res) => {
       totalPages: Math.ceil(todos.count / limit),
       currentPage: page,
     },
-    ""
+    messages.getTodoSuccess
   );
 };
+
 const updateTodo = async (req, res) => {
-  const { id } = req.body;
-  const { title, description } = req.body;
-  const todo = await Todo.findByPk(id);
-  if (!todo) {
-    return sendNotFound(res, messages.todoNotFound, 404);
-  }
+  const { id, title, description } = req.body;
+
+  const todo = await findTodoById(id, res);
+  if (!todo) return;
 
   todo.title = title || todo.title;
   todo.description = description || todo.description;
@@ -64,10 +73,9 @@ const updateTodo = async (req, res) => {
 
 const deleteTodo = async (req, res) => {
   const { id } = req.body;
-  const todo = await Todo.findByPk(id);
-  if (!todo) {
-    return sendError(res, messages.todoNotFound, 404);
-  }
+
+  const todo = await findTodoById(id, res);
+  if (!todo) return;
 
   await todo.destroy();
   sendSuccess(res, null, messages.todoDeleteSuccess);
@@ -79,5 +87,3 @@ module.exports = {
   updateTodo,
   deleteTodo,
 };
-
-// create routes, make this file dry. error handler logic,
