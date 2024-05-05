@@ -2,6 +2,7 @@ const Messages = {
   serverError: "An Error Occurred",
   badRequest: "Bad Request",
   forbidden: "Forbidden",
+  notFound: "Not Found",
 
   requestSuccessful: "Request successful",
   requestFailed: "Request failed! Try again",

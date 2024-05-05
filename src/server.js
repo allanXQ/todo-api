@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const { sequelize } = require("./config");
+const { sequelize, messages } = require("./config");
 const { errorHandler } = require("./middleware");
 
 const app = express();
@@ -12,6 +12,10 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", require("./routes/auth"));
+app.use("/api/todos", require("./routes/todo"));
+app.use("*", (req, res) => {
+  res.status(404).json({ message: messages.notFound });
+});
 
 app.use(errorHandler);
 
