@@ -12,10 +12,6 @@ const findTodoById = async (id, res) => {
   return todo;
 };
 
-const generateTodoFilter = (filter) => {
-  return filter ? { title: { [Sequelize.Op.like]: `%${filter}%` } } : {};
-};
-
 const addTodo = async (req, res) => {
   const { title, description } = req.body;
   const todo = await Todo.create({
@@ -34,10 +30,14 @@ const getTodos = async (req, res) => {
     page = 1,
     pageSize = 10,
   } = req.query;
+
+  const userId = req.userId;
   const limit = parseInt(pageSize);
   const offset = (page - 1) * limit;
-
-  const where = generateTodoFilter(filter);
+  const where = {
+    userId,
+    ...(filter && { title: { [Sequelize.Op.like]: `%${filter}%` } }),
+  };
 
   const todos = await Todo.findAndCountAll({
     where,
@@ -46,12 +46,14 @@ const getTodos = async (req, res) => {
     offset,
   });
 
+  const totalPages = Math.ceil(todos.count / limit);
+
   sendSuccess(
     res,
     {
       data: todos.rows,
       total: todos.count,
-      totalPages: Math.ceil(todos.count / limit),
+      totalPages,
       currentPage: page,
     },
     messages.getTodoSuccess
