@@ -34,6 +34,15 @@ const Messages = {
 
   userNotFound: "User Not Found",
   userExists: "Credentials already in use",
+
+  //todos
+  createTodoSuccess: "Todo created successfully",
+  createTodoFail: "Failed to create todo. Try Again!",
+  getTodoSuccess: "Todos retrieved successfully",
+  getTodoFail: "Failed to retrieve todos. Try Again!",
+  todoNotFound: "Todo not found",
+  todoUpdateSuccess: "Todo updated successfully",
+  todoDeleteSuccess: "Todo deleted successfully",
 };
 
 module.exports = Messages;

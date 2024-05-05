@@ -1,5 +1,6 @@
+const { messages } = require("../../config");
 const { Todo } = require("../../models");
-const { sendSuccess, sendError } = require("../../utils");
+const { sendSuccess } = require("../../utils");
 
 const addTodo = async (req, res) => {
   const { title, description } = req.body;
@@ -8,7 +9,7 @@ const addTodo = async (req, res) => {
     description,
     userId: req.userId,
   });
-  sendSuccess(res, todo, "Todo created successfully");
+  sendSuccess(res, todo, messages.createTodoSuccess);
 };
 
 const getTodos = async (req, res) => {
@@ -43,7 +44,7 @@ const getTodos = async (req, res) => {
       totalPages: Math.ceil(todos.count / limit),
       currentPage: page,
     },
-    "Todos retrieved successfully"
+    ""
   );
 };
 const updateTodo = async (req, res) => {
@@ -51,25 +52,25 @@ const updateTodo = async (req, res) => {
   const { title, description } = req.body;
   const todo = await Todo.findByPk(id);
   if (!todo) {
-    return sendError(res, "Todo not found", 404);
+    return sendError(res, messages.todoNotFound, 404);
   }
 
   todo.title = title || todo.title;
   todo.description = description || todo.description;
   await todo.save();
 
-  sendSuccess(res, todo, "Todo updated successfully");
+  sendSuccess(res, todo, messages.todoUpdateSuccess);
 };
 
 const deleteTodo = async (req, res) => {
   const { id } = req.params;
   const todo = await Todo.findByPk(id);
   if (!todo) {
-    return sendError(res, "Todo not found", 404);
+    return sendError(res, messages.todoNotFound, 404);
   }
 
   await todo.destroy();
-  sendSuccess(res, null, "Todo deleted successfully");
+  sendSuccess(res, null, messages.todoDeleteSuccess);
 };
 
 module.exports = {
@@ -78,3 +79,5 @@ module.exports = {
   updateTodo,
   deleteTodo,
 };
+
+// create routes, make this file dry. error handler logic,
