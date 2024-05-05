@@ -20,7 +20,7 @@ const router = Router();
 // routes
 router.post("/add", errorHOC(addTodo));
 router.get("/", errorHOC(getTodos));
-router.post("/:id", errorHOC(updateTodo));
-router.post("/:id", errorHOC(deleteTodo));
+router.post("/update", errorHOC(updateTodo));
+router.post("/delete", errorHOC(deleteTodo));
 
 module.exports = router;
