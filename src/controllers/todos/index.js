@@ -1,6 +1,6 @@
-const { messages } = require("../../config");
-const { Todo } = require("../../models");
-const { sendSuccess } = require("../../utils");
+const { messages } = require("@config");
+const { Todo } = require("@models");
+const { sendSuccess } = require("@utils");
 
 const addTodo = async (req, res) => {
   const { title, description } = req.body;

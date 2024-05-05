@@ -1,8 +1,8 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const { User } = require("../../models");
-const { messages } = require("../../config");
-const { setCookies, generateTokens } = require("../../utils");
+const { User } = require("@models");
+const { messages } = require("@config");
+const { setCookies, generateTokens } = require("@utils");
 
 const login = async (req, res) => {
   const { email, password } = req.body;

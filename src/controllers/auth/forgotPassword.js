@@ -1,8 +1,8 @@
 require("dotenv").config();
-const { User } = require("../../models");
+const { User } = require("@models");
 const jwt = require("jsonwebtoken");
-const { messages } = require("../../config");
-const { sendEmail } = require("../../utils");
+const { messages } = require("@config");
+const { sendEmail } = require("@utils");
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;

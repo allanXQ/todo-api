@@ -1,6 +1,6 @@
-const { User } = require("../../models"); // Updated to match typical Sequelize model import
-const { messages } = require("../../config");
-const { clearTokens } = require("../../utils");
+const { User } = require("@models");
+const { messages } = require("@config");
+const { clearTokens } = require("@utils");
 
 const logout = async (req, res) => {
   const userId = req.userId;

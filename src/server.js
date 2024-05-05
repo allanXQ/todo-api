@@ -1,9 +1,10 @@
+require("module-alias/register");
 require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const { sequelize, messages } = require("./config");
-const { errorHandler } = require("./middleware");
+const { sequelize, messages } = require("@config");
+const { errorHandler } = require("@middleware");
 
 const app = express();
 

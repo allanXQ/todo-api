@@ -1,25 +1,23 @@
-import Router from "express";
-import { formValidate } from "../../middleware";
-import {
+const { Router } = require("express");
+const { formValidate } = require("@middleware");
+const {
   login,
   register,
   resetPassword,
   forgotPassword,
   refreshToken,
   logout,
-} from "../../controllers/auth";
-import {
+} = require("@controllers/auth");
+const {
   regSchema,
   loginSchema,
   forgotPasswordSchema,
   resetPasswordSchema,
-} from "../../yupschemas";
-
-import { errorHOC } from "../../utils";
+} = require("@yupschemas");
+const { errorHOC } = require("@utils");
 
 const router = Router();
 
-// routes
 router.post("/register", formValidate(regSchema), errorHOC(register));
 router.post("/login", formValidate(loginSchema), errorHOC(login));
 router.post(

@@ -1,8 +1,8 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { User } = require("../../models");
-const { messages } = require("../../config");
+const { User } = require("@models");
+const { messages } = require("@config");
 
 const resetPassword = async (req, res) => {
   const { password } = req.body;

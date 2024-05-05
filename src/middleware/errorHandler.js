@@ -1,12 +1,7 @@
-const { clearTokens, logger } = require("../utils");
-const { messages } = require("../config");
-const {
-  sendServerError,
-  sendUnauthorized,
-  sendBadRequest,
-} = require("../utils");
+const { clearTokens, logger } = require("@utils");
+const { messages } = require("@config");
+const { sendServerError, sendUnauthorized, sendBadRequest } = require("@utils");
 
-// General error handling middleware
 const errorHandler = (error, req, res, next) => {
   switch (error.name) {
     case "YupValidationError":

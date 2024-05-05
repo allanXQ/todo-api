@@ -1,19 +1,19 @@
-import Router from "express";
-import { formValidate } from "../../middleware";
-import {
+const Router = require("express").Router;
+const { formValidate } = require("@middleware");
+const {
   addTodo,
   getTodos,
   updateTodo,
   deleteTodo,
-} from "../../controllers/todos";
-import {
+} = require("@controllers/todos");
+const {
   addTodoSchema,
   updateTodoSchema,
   getTodosSchema,
   deleteTodoSchema,
-} from "../../yupschemas";
+} = require("@yupschemas");
 
-import { errorHOC } from "../../utils";
+const { errorHOC } = require("@utils");
 
 const router = Router();
 

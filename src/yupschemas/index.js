@@ -1,5 +1,5 @@
 const yup = require("yup");
-const { messages } = require("../config");
+const { messages } = require("@config");
 
 const passwordRegexp =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;
@@ -34,7 +34,7 @@ const descriptionSchema = yup.string().trim().nullable();
 const addTodoSchema = yup.object().shape({
   title: titleSchema,
   description: descriptionSchema,
-  userId: yup.number().integer().positive().required(messages.userIdRequired), // Assuming userId is required
+  userId: yup.number().integer().positive().required(messages.userIdRequired),
 });
 
 const updateTodoSchema = yup.object().shape({
