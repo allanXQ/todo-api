@@ -58,19 +58,28 @@ A comprehensive RESTful API for managing todos. The application includes authent
 
 ## Folder Structure
 
-├── src
-│ ├── config // Configuration files (e.g., database, messages)
-│ ├── controllers // API endpoint logic
-│ ├── middleware // Middlewares (e.g., error handling, rate limiting)
-│ ├── models // Sequelize models
-│ ├── routes // API routing logic
-│ ├── utils // Utility functions
-│ ├── yupschemas // yup validation schemas
-│ └── server.js // Main Express app setup
-├── tests // Unit and integration tests
-├── .env // Environment variables file (not version-controlled)
-├── package.json // Project metadata and dependencies
-└── README.md // Documentation file
+```plaintext
+todo-api/
+├── src/
+│   ├── config/                # Contains configuration settings and environment variables
+│   ├── controllers/           # Business logic for handling requests
+│   ├── middleware/            # Middleware functions for authentication, error handling, etc.
+│   ├── models/                # Sequelize models for database interactions
+│   ├── routes/                # Router definitions for API endpoints
+│   ├── utils/                 # Utility functions and helpers
+│   ├── yupschemas/            # Schemas used for validation with yup
+│   └── server.js              # Main Express app setup
+├── logs/                      # Log files are stored here
+│   ├── error.json             # Error logs
+│   └── exceptions.json        # Unhandled exception logs
+├── tests/                     # Contains test files for the application
+├── node_modules/              # Node.js libraries and dependencies
+├── .env                       # Environment variables for local development
+├── .gitignore                 # Specifies intentionally untracked files to ignore
+├── package.json               # Project manifest with metadata and dependencies
+├── package-lock.json          # Automatically generated for any operations
+├── README.md                  # The top-level README for developers using this project
+```
 
 ## Running the Application
 
