@@ -63,15 +63,24 @@ const getTodos = async (req, res) => {
 
 const updateTodo = async (req, res) => {
   const { id, title, description } = req.body;
-
-  const todo = await findTodoById(id, res);
-  if (!todo) return;
+  const userId = req.userId;
+  const todo = await Todo.findOne({ where: { id, userId } });
+  if (!todo) {
+    sendBadRequest(res, messages.todoNotFound);
+    return;
+  }
 
   todo.title = title || todo.title;
   todo.description = description || todo.description;
   await todo.save();
+  const returnTodo = {
+    id: todo.id,
+    title: todo.title,
+    description: todo.description,
+    completed: todo.completed,
+  };
 
-  sendSuccess(res, todo, messages.todoUpdateSuccess);
+  sendSuccess(res, returnTodo, messages.todoUpdateSuccess);
 };
 
 const deleteTodo = async (req, res) => {
