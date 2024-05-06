@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { formValidate } = require("../../middleware");
+const { formValidate, verifyjwt } = require("../../middleware");
 const {
   addTodo,
   getTodos,
@@ -15,9 +15,19 @@ const {
 
 const { errorHOC } = require("../../utils");
 
-router.post("/add", formValidate(addTodoSchema), errorHOC(addTodo));
-router.get("/", formValidate(getTodosSchema), errorHOC(getTodos));
-router.post("/update", formValidate(updateTodoSchema), errorHOC(updateTodo));
-router.post("/delete", formValidate(deleteTodoSchema), errorHOC(deleteTodo));
+router.post("/add", verifyjwt, formValidate(addTodoSchema), errorHOC(addTodo));
+router.get("/", verifyjwt, formValidate(getTodosSchema), errorHOC(getTodos));
+router.post(
+  "/update",
+  verifyjwt,
+  formValidate(updateTodoSchema),
+  errorHOC(updateTodo)
+);
+router.post(
+  "/delete",
+  verifyjwt,
+  formValidate(deleteTodoSchema),
+  errorHOC(deleteTodo)
+);
 
 module.exports = router;

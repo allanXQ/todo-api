@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const { sequelize, messages } = require("./config");
 const { errorHandler, rateLimiter } = require("./middleware");
 const { logger } = require("./utils");
@@ -10,6 +11,7 @@ const { logger } = require("./utils");
 const app = express();
 
 app.use(helmet());
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(rateLimiter);
