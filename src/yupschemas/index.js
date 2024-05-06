@@ -34,7 +34,6 @@ const descriptionSchema = yup.string().trim().nullable();
 const addTodoSchema = yup.object().shape({
   title: titleSchema,
   description: descriptionSchema,
-  userId: yup.number().integer().positive().required(messages.userIdRequired),
 });
 
 const updateTodoSchema = yup.object().shape({
