@@ -44,6 +44,7 @@ const getTodos = async (req, res) => {
     order: [[sort, order.toUpperCase()]],
     limit,
     offset,
+    attributes: ["id", "title", "description", "completed"],
   });
 
   const totalPages = Math.ceil(todos.count / limit);
