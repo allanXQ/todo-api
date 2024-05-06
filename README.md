@@ -65,10 +65,12 @@ A comprehensive RESTful API for managing todos. The application includes authent
 │ ├── models // Sequelize models
 │ ├── routes // API routing logic
 │ ├── utils // Utility functions
-│ ├── yupschemas // Schemas used for yup validations
+│ ├── yupschemas // yup validation schemas
 │ └── server.js // Main Express app setup
 ├── tests // Unit and integration tests
-└── README.md
+├── .env // Environment variables file (not version-controlled)
+├── package.json // Project metadata and dependencies
+└── README.md // Documentation file
 
 ## Running the Application
 
