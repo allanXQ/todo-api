@@ -22,6 +22,10 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    passwordResetToken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     sequelize,
