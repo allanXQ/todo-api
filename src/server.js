@@ -20,7 +20,7 @@ app.use("/api/v1/auth", require("./routes/auth"));
 app.use("/api/v1/todos", require("./routes/todo"));
 
 app.use("*", (req, res) => {
-  res.status(404).json({ message: messages.notFound });
+  res.status(404).json({ message: messages.urlNotFound });
 });
 
 app.use(errorHandler);
