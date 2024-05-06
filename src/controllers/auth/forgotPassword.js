@@ -2,13 +2,18 @@ require("dotenv").config();
 const { User } = require("../../models");
 const jwt = require("jsonwebtoken");
 const { messages } = require("../../config");
-const { sendEmail, sendSuccess, sendServerError } = require("../../utils");
+const {
+  sendEmail,
+  sendSuccess,
+  sendServerError,
+  sendBadRequest,
+} = require("../../utils");
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ where: { email } });
   if (!user) {
-    return res.status(400).json({ message: messages.userNotFound });
+    return sendBadRequest(res, messages.userNotFound);
   }
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {

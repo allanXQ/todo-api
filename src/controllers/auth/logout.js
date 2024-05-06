@@ -1,6 +1,7 @@
 const { User } = require("../../models");
 const { messages } = require("../../config");
 const { clearTokens } = require("../../utils");
+const { sendSuccess, sendUnauthorized } = require("../../utils");
 
 const logout = async (req, res) => {
   const userId = req.userId;
@@ -9,14 +10,14 @@ const logout = async (req, res) => {
 
   if (!user) {
     clearTokens(res);
-    return res.status(401).json({ message: messages.invalidToken });
+    return sendUnauthorized(res, messages.logOutSuccess);
   }
 
   user.refreshToken = null;
   await user.save();
 
   clearTokens(res);
-  return res.status(200).json({ message: messages.logOutSuccess });
+  return sendSuccess(res, null, messages.logOutSuccess);
 };
 
 module.exports = { logout };

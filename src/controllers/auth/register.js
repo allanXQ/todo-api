@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const { User } = require("../../models");
 const { messages } = require("../../config");
+const { sendBadRequest, sendSuccess } = require("../../utils");
 
 function generateApiKey() {
   return require("crypto").randomBytes(16).toString("hex");
@@ -11,7 +12,7 @@ const register = async (req, res) => {
 
   const user = await User.findOne({ where: { email } });
   if (user) {
-    return res.status(400).json({ message: messages.userExists });
+    return sendBadRequest(res, messages.userExists);
   }
   const password = await bcrypt.hash(plainPassword, 10);
   await User.create({
@@ -20,7 +21,7 @@ const register = async (req, res) => {
     apiKey: generateApiKey(),
     authMethod: "local",
   });
-  return res.status(200).json({ message: messages.userCreatedSuccessfully });
+  return sendSuccess(res, null, messages.userCreatedSuccessfully);
 };
 
 module.exports = { register };
