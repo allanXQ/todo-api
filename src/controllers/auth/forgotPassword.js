@@ -2,7 +2,7 @@ require("dotenv").config();
 const { User } = require("../../models");
 const jwt = require("jsonwebtoken");
 const { messages } = require("../../config");
-const { sendEmail } = require("../../utils");
+const { sendEmail, sendSuccess, sendServerError } = require("../../utils");
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -29,9 +29,9 @@ const forgotPassword = async (req, res) => {
              <p>This link expires in 15 minutes.</p>
              <p>If this wasn't you, contact the admin immediately.</p>`,
     });
-    res.status(200).json({ message: messages.passwordResetEmail });
+    sendSuccess(res, null, messages.passwordResetEmailSent);
   } catch (e) {
-    res.status(400).json({ message: messages.requestFailed });
+    sendServerError(res, messages.requestFailed);
   }
 };
 
