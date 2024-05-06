@@ -14,8 +14,8 @@ app.use(cors());
 app.use(express.json());
 app.use(rateLimiter);
 
-app.use("/api/v1/auth", require("@routes/auth"));
-app.use("/api/v1/todos", require("@routes/todo"));
+app.use("/api/v1/auth", require("./routes/auth"));
+app.use("/api/v1/todos", require("./routes/todo"));
 
 app.use("*", (req, res) => {
   res.status(404).json({ message: messages.notFound });
