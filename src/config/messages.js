@@ -3,23 +3,23 @@ const Messages = {
   badRequest: "Bad Request",
   forbidden: "Forbidden",
   notFound: "Not Found",
+  urlNotFound: "URL Not Found",
 
   requestSuccessful: "Request successful",
   requestFailed: "Request failed! Try again",
   updateSuccess: "Update successful",
   updateFailed: "Update failed! Try again",
+  deleteSuccess: "Delete successful",
+  deleteFailed: "Delete failed! Try again",
+  invalidString: "Invalid string",
 
+  //auth
   invalidToken: "Invalid Token",
-  invalidRefreshToken: "Invalid Refresh Token",
-  tokenRefreshed: "Token Refreshed",
-  tokenRefreshFailed: "Token Refresh Failed",
   tokenExpired: "Token Expired",
-  refreshTokenExpired: "Refresh Token Expired",
-
-  invalidUsername: "Invalid username",
   invalidEmail: "Invalid email",
+  emailRequired: "Email is required",
+  passwordRequired: "Password is required",
   invalidPassword: "Invalid password",
-  incorrectPassword: "Incorrect password",
   passwordRegex:
     "Password must be at least 8 characters, must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number, and can contain special characters",
   invalidCredentials: "Invalid credentials",
@@ -43,7 +43,13 @@ const Messages = {
   getTodoFail: "Failed to retrieve todos. Try Again!",
   todoNotFound: "Todo not found",
   todoUpdateSuccess: "Todo updated successfully",
+  todoUpdateFail: "Failed to update todo. Try Again!",
   todoDeleteSuccess: "Todo deleted successfully",
+  todoDeleteFail: "Failed to delete todo. Try Again!",
+  todoIdRequired: "Todo ID is required",
+  todoTitleRequired: "Todo title is required",
+  invalidSortField: "Invalid sort field",
+  invalidSortOrder: "Invalid sort order",
 };
 
 module.exports = Messages;
