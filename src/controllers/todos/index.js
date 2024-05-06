@@ -62,7 +62,7 @@ const getTodos = async (req, res) => {
 };
 
 const updateTodo = async (req, res) => {
-  const { id, title, description } = req.body;
+  const { id, title, description, completed } = req.body;
   const userId = req.userId;
   const todo = await Todo.findOne({ where: { id, userId } });
   if (!todo) {
@@ -72,6 +72,7 @@ const updateTodo = async (req, res) => {
 
   todo.title = title || todo.title;
   todo.description = description || todo.description;
+  todo.completed = completed || todo.completed;
   await todo.save();
   const returnTodo = {
     id: todo.id,
