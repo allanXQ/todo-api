@@ -1,11 +1,13 @@
 const jwt = require("jsonwebtoken");
 const { messages } = require("../config");
+const { logger, sendUnauthorized } = require("../utils");
 
 const verifyjwt = (req, res, next) => {
   try {
     const { accessToken } = req.cookies;
     if (!accessToken) {
-      return res.status(401).json({ message: messages.invalidToken });
+      logger.log("error", messages.tokenRequired);
+      return sendUnauthorized(res, messages.tokenRequired);
     }
     jwt.verify(accessToken, process.env.JWT_SECRET, (err, user) => {
       if (err) {
@@ -15,7 +17,6 @@ const verifyjwt = (req, res, next) => {
       next();
     });
   } catch (error) {
-    console.log(error);
     return res.status(403).json({ message: messages.serverError });
   }
 };

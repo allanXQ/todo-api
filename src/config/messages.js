@@ -14,8 +14,9 @@ const Messages = {
   invalidString: "Invalid string",
 
   //auth
-  invalidToken: "Invalid Token",
-  tokenExpired: "Token Expired",
+  invalidToken: "Invalid Access Token",
+  tokenExpired: "Access Token Expired",
+  tokenRequired: "Access Token is required",
   invalidEmail: "Invalid email",
   emailRequired: "Email is required",
   passwordRequired: "Password is required",
