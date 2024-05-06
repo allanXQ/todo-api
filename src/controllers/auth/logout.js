@@ -1,7 +1,7 @@
 const { User } = require("../../models");
 const { messages } = require("../../config");
 const { clearTokens } = require("../../utils");
-const { sendSuccess, sendUnauthorized } = require("../../utils");
+const { sendSuccess } = require("../../utils");
 
 const logout = async (req, res) => {
   const userId = req.userId;
@@ -10,7 +10,7 @@ const logout = async (req, res) => {
 
   if (!user) {
     clearTokens(res);
-    return sendUnauthorized(res, messages.logOutSuccess);
+    return sendSuccess(res, null, messages.logOutSuccess);
   }
 
   user.refreshToken = null;
