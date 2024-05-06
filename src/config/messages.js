@@ -1,7 +1,15 @@
+const { error } = require("winston");
+
 const Messages = {
-  serverError: "An Error Occurred",
+  //general
+
+  success: "Success",
+  error: "Error",
+
+  serverError: "An Error Occurred! Try again",
   badRequest: "Bad Request",
   forbidden: "Forbidden",
+  unauthorized: "Unauthorized",
   notFound: "Not Found",
   urlNotFound: "URL Not Found",
 
