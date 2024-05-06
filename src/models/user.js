@@ -34,7 +34,7 @@ User.init(
     indexes: [
       {
         unique: true,
-        fields: ["email"],
+        fields: ["email", "id"],
       },
     ],
     paranoid: true,
