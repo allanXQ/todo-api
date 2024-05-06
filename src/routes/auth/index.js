@@ -5,7 +5,6 @@ const {
   register,
   resetPassword,
   forgotPassword,
-  refreshToken,
   logout,
 } = require("../../controllers/auth");
 const {
