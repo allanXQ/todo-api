@@ -51,6 +51,8 @@ const Messages = {
   todoTitleRequired: "Todo title is required",
   invalidSortField: "Invalid sort field",
   invalidSortOrder: "Invalid sort order",
+
+  rateLimit: "Too many requests from this IP, try again after 15 minutes",
 };
 
 module.exports = Messages;
