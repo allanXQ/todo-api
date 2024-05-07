@@ -160,4 +160,41 @@ describe("Todo Controller Integration Tests", () => {
     expect(response.status).toBe(404);
     expect(response.body.message).toBe(messages.todoNotFound);
   });
+
+  //test crud without access token
+  test("POST /api/v1/todos should return an error for missing access token", async () => {
+    const response = await request(app)
+      .post("/api/v1/todos/add")
+      .send({ title: "Test Todo", description: "Test description" });
+
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe(messages.tokenRequired);
+  });
+
+  test("GET /api/v1/todos should return an error for missing access token", async () => {
+    const response = await request(app).get("/api/v1/todos");
+
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe(messages.tokenRequired);
+  });
+
+  test("POST /api/v1/todos/update should return an error for missing access token", async () => {
+    const response = await request(app).post("/api/v1/todos/update").send({
+      id: 1,
+      title: "Updated Title",
+      description: "Updated description",
+    });
+
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe(messages.tokenRequired);
+  });
+
+  test("POST /api/v1/todos/delete should return an error for missing access token", async () => {
+    const response = await request(app)
+      .post("/api/v1/todos/delete")
+      .send({ id: 1 });
+
+    expect(response.status).toBe(401);
+    expect(response.body.message).toBe(messages.tokenRequired);
+  });
 });
