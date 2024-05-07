@@ -101,44 +101,6 @@ todo-api/
    npm start
    ```
 
-## API Documentation
-
-### Authentication
-
-- **POST /api/v1/auth/register**: Register a new user
-
-  - Body: `{ "email": "user@example.com", "password": "Password123!" }`
-
-- **POST /api/v1/auth/login**: Login and get access token
-
-  - Body: `{ "email": "user@example.com", "password": "Password123!" }`
-
-- **POST /api/v1/auth/logout**: Logout and invalidate tokens
-
-- **POST /api/v1/auth/forgot-password**: Send password reset email
-
-  - Body: `{ "email": "user@example.com" }`
-
-- **POST /api/v1/auth/reset-password/:token**: Reset password using a token
-  - Body: `{ "password": "NewPassword123!" }`
-
-### Todos
-
-- **POST /api/v1/todos**: Add a new todo
-
-  - Body: `{ "title": "Todo Title", "description": "Details of the todo" }`
-
-- **GET /api/v1/todos**: Get all todos with filtering and pagination
-
-  - Query Params: `{ "filter": "title substring", "sort": "createdAt", "order": "ASC", "page": 1, "pageSize": 10 }`
-
-- **POST /api/v1/todos**: Update an existing todo
-
-  - Body: `{ "id": 1, "title": "Updated Title", "description": "Updated description", "completed": true }`
-
-- **POST /api/v1/todos**: Delete a specific todo
-  - Body: `{ "id": 1 }`
-
 ## Testing
 
 - **Unit Tests**: Run all unit tests using Jest
