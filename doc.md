@@ -58,10 +58,11 @@ The Todo API is a backend service that supports user authentication, authorizati
 
 ```json
 {
-  "message": "Login successful.",
-  "token": "JWT_ACCESS_TOKEN"
+  "message": "Login successful."
 }
 ```
+
+- **Cookie**: The authentication token is stored in a cookie (e.g., accessToken) with appropriate security attributes set.
 
 ### User Logout
 
@@ -97,7 +98,7 @@ The Todo API is a backend service that supports user authentication, authorizati
 
 **Responses:**
 
-- **200 OK**: Email sent successfully.
+- **200 OK**: Password reset email sent.
 - **400 Bad Request**: Invalid email or user not found.
 
 **Example Response:**
@@ -137,15 +138,15 @@ The Todo API is a backend service that supports user authentication, authorizati
 
 ## Todo CRUD Operations
 
+### Authentication:
+
+All Todos endpoints require authentication. The authentication token is expected to be set in the cookies of the request.
+
 ### Create Todo
 
 **Endpoint:** `POST /api/v1/todos/add`
 
 **Description:** Create a new todo item.
-
-**Request Headers:**
-
-- `Authorization: Bearer JWT_ACCESS_TOKEN`
 
 **Request Body:**
 
@@ -160,6 +161,7 @@ The Todo API is a backend service that supports user authentication, authorizati
 
 - **200 OK**: Todo created successfully.
 - **400 Bad Request**: Missing required fields (e.g., title).
+- **401 Unauthorized**: Missing or invalid authorization token.
 
 **Example Response:**
 
@@ -170,7 +172,9 @@ The Todo API is a backend service that supports user authentication, authorizati
     "id": 1,
     "title": "New Todo Title",
     "description": "Description for the new todo item.",
-    "completed": false
+    "completed": false,
+    "createdAt": "2024-05-07T16:38:04.280Z",
+    "updatedAt": "2024-05-07T16:38:04.280Z"
   }
 }
 ```
@@ -180,10 +184,6 @@ The Todo API is a backend service that supports user authentication, authorizati
 **Endpoint:** `GET /api/v1/todos`
 
 **Description:** Retrieve a list of todos for the authenticated user.
-
-**Request Headers:**
-
-- `Authorization: Bearer JWT_ACCESS_TOKEN`
 
 **Query Parameters:**
 
@@ -209,7 +209,9 @@ The Todo API is a backend service that supports user authentication, authorizati
         "id": 1,
         "title": "First Todo",
         "description": "Description of the first todo.",
-        "completed": false
+        "completed": false,
+        "createdAt": "2024-05-07T16:38:04.280Z",
+        "updatedAt": "2024-05-07T16:38:04.280Z"
       }
     ],
     "total": 1,
@@ -225,17 +227,14 @@ The Todo API is a backend service that supports user authentication, authorizati
 
 **Description:** Update an existing todo.
 
-**Request Headers:**
-
-- `Authorization: Bearer JWT_ACCESS_TOKEN`
-
 **Request Body:**
 
 ```json
 {
   "id": 1,
   "title": "Updated Todo Title",
-  "description": "Updated description."
+  "description": "Updated description.",
+  "completed": true
 }
 ```
 
@@ -243,6 +242,7 @@ The Todo API is a backend service that supports user authentication, authorizati
 
 - **200 OK**: Todo updated successfully.
 - **404 Not Found**: The specified todo does not exist.
+- **401 Unauthorized**: Missing or invalid authorization token.
 
 **Example Response:**
 
@@ -253,7 +253,7 @@ The Todo API is a backend service that supports user authentication, authorizati
     "id": 1,
     "title": "Updated Todo Title",
     "description": "Updated description.",
-    "completed": false
+    "completed": true
   }
 }
 ```
@@ -263,10 +263,6 @@ The Todo API is a backend service that supports user authentication, authorizati
 **Endpoint:** `POST /api/v1/todos/delete`
 
 **Description:** Delete a todo by its ID.
-
-**Request Headers:**
-
-- `Authorization: Bearer JWT_ACCESS_TOKEN`
 
 **Request Body:**
 
@@ -280,12 +276,15 @@ The Todo API is a backend service that supports user authentication, authorizati
 
 - **200 OK**: Todo deleted successfully.
 - **404 Not Found**: The specified todo does not exist.
+- **401 Unauthorized**: Missing or invalid authorization token.
 
 **Example Response:**
 
 ```json
 {
-  "message": "Todo deleted successfully."
+  "status": "Success",
+  "message": "Todo deleted successfully",
+  "data": null
 }
 ```
 
@@ -298,4 +297,5 @@ The Todo API is a backend service that supports user authentication, authorizati
 ## Security Considerations
 
 - **Authentication:** All endpoints require a valid JWT token.
+- **Yup Validation:** All endpoints require valid data.
 - **Rate Limiting:** Built-in rate limiting middleware ensures no single user can overload the system.
