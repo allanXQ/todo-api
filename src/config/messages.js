@@ -42,6 +42,7 @@ const Messages = {
 
   userNotFound: "User Not Found",
   userExists: "Credentials already in use",
+  recordExists: "Record already exists",
 
   //todos
   createTodoSuccess: "Todo created successfully",
