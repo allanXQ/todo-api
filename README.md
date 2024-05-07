@@ -47,7 +47,7 @@ A comprehensive RESTful API for managing todos. The application includes authent
    APP_URL = http://localhost:5000
    EMAIL = your email address //to be used for password reset
    EMAIL_PASSWORD = your email account password
-   NODE_ENV = test or production or development
+   NODE_ENV = development
    ```
 
 4. **Run Database Migrations:**
@@ -143,6 +143,7 @@ todo-api/
 
 - **Unit Tests**: Run all unit tests using Jest
   - Create a database for testing purposes
+  - Create User and todo tables
   - Update NODE_ENV value to test
   ```bash
   npm test
