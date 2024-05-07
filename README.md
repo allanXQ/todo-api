@@ -24,7 +24,7 @@ A comprehensive RESTful API for managing todos. The application includes authent
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/todo-api.git
+   https://github.com/allanXQ/todo-api.git
    cd todo-api
    ```
 
@@ -43,9 +43,9 @@ A comprehensive RESTful API for managing todos. The application includes authent
    JWT_SECRET=your_jwt_secret
    JWT_REFRESH_SECRET=your_jwt_refresh_secret
    DATABASE_URL=postgres://user:password@localhost:5432/todo
-   TEST_DATABASE_URL=postgres://user:password@localhost:5432/todo
+   TEST_DATABASE_URL=postgres://user:password@localhost:5432/todotest
    APP_URL = http://localhost:5000
-   EMAIL = your email address //to be used for password reset
+   EMAIL = your email address to be used for sending password reset email
    EMAIL_PASSWORD = your email account password
    NODE_ENV = development
    ```
@@ -63,24 +63,24 @@ A comprehensive RESTful API for managing todos. The application includes authent
 ```plaintext
 todo-api/
 ├── src/
-│   ├── config/                # Contains configuration settings and environment variables
+│   ├── config/                # Contains database configuration settings and response messages
 │   ├── controllers/           # Business logic for handling requests
-│   ├── middleware/            # Middleware functions for authentication, error handling, etc.
+│   ├── middleware/            # Middleware functions for authentication, error handling etc.
 │   ├── models/                # Sequelize models for database interactions
 │   ├── routes/                # Router definitions for API endpoints
 │   ├── utils/                 # Utility functions and helpers
 │   ├── yupschemas/            # Schemas used for validation with yup
 │   └── server.js              # Main Express app setup
 ├── logs/                      # Log files are stored here
-│   ├── error.json             # Error logs
-│   └── exceptions.json        # Unhandled exception logs
 ├── tests/                     # Contains test files for the application
 ├── node_modules/              # Node.js libraries and dependencies
 ├── .env                       # Environment variables for local development
 ├── .gitignore                 # Specifies intentionally untracked files to ignore
 ├── package.json               # Project manifest with metadata and dependencies
 ├── package-lock.json          # Automatically generated for any operations
+├── nodemon.json               # Nodemon configs
 ├── README.md                  # The top-level README for developers using this project
+├── doc.md                     # The API documentation
 ```
 
 ## Running the Application
@@ -108,5 +108,5 @@ todo-api/
   - Create User and todo tables
   - Update NODE_ENV value to test
   ```bash
-  npm test
+  npm run test
   ```
