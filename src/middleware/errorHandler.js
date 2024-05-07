@@ -30,6 +30,9 @@ const errorHandler = (error, req, res, next) => {
     case "RefreshTokenExpiredError":
       logger.error(error.message, logContext);
       return sendUnauthorized(res, messages.tokenExpired);
+    case "SequelizeUniqueConstraintError":
+      logger.error(error.message, logContext);
+      return sendBadRequest(res, messages.recordExists);
     default:
       logger.error(error.message, logContext);
       return sendServerError(res, messages.serverError);
