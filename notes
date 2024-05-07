@@ -1,6 +1,0 @@
-use common response handler in all controllers
-use common message handler in all controllers, middleware, utils
-some messages are being used in yup schemas but havent been created
-security issue with user id being exposed in url. find a way to conceal it
-ensure all responses are being used as intended
-test sorting, pagination, filtering
