@@ -43,9 +43,11 @@ A comprehensive RESTful API for managing todos. The application includes authent
    JWT_SECRET=your_jwt_secret
    JWT_REFRESH_SECRET=your_jwt_refresh_secret
    DATABASE_URL=postgres://user:password@localhost:5432/todo
+   TEST_DATABASE_URL=postgres://user:password@localhost:5432/todo
    APP_URL = http://localhost:5000
    EMAIL = your email address //to be used for password reset
    EMAIL_PASSWORD = your email account password
+   NODE_ENV = test or production or development
    ```
 
 4. **Run Database Migrations:**
@@ -140,6 +142,8 @@ todo-api/
 ## Testing
 
 - **Unit Tests**: Run all unit tests using Jest
+  - Create a database for testing purposes
+  - Update NODE_ENV value to test
   ```bash
   npm test
   ```
