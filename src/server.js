@@ -29,26 +29,29 @@ const PORT = process.env.PORT || 5000;
 let server;
 
 function startServer() {
-  server = app.listen(PORT, () => {
-    logger.info(`Server is running on port ${PORT}`);
-  });
+  if (!server) {
+    server = app.listen(PORT, () => {
+      logger.info(`Server is running on port ${PORT}`);
+    });
+  }
+
+  return server;
 }
 
-async function gracefulShutdown(signal) {
-  logger.info(`Received ${signal}, initiating graceful shutdown...`);
+async function stopServer(signal) {
+  if (server) {
+    logger.info(`Received ${signal}, initiating graceful shutdown...`);
 
-  server.close(() => {
-    logger.info("Closed remaining connections.");
-  });
+    server.close(() => {
+      logger.info("Closed remaining connections.");
+    });
 
-  try {
-    await sequelize.close();
-    logger.info("Database connection closed.");
-
-    process.exit(0);
-  } catch (err) {
-    logger.error("Error during shutdown:", err);
-    process.exit(1);
+    try {
+      await sequelize.close();
+      logger.info("Database connection closed.");
+    } catch (err) {
+      logger.error("Error during shutdown:", err);
+    }
   }
 }
 
@@ -67,7 +70,11 @@ sequelize
   });
 
 ["SIGINT", "SIGTERM"].forEach((signal) => {
-  process.on(signal, () => gracefulShutdown(signal));
+  process.on(signal, () => stopServer(signal));
 });
 
-module.exports = app;
+module.exports = {
+  app,
+  startServer,
+  stopServer,
+};

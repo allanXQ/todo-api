@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../src/server");
+const { app, startServer, stopServer } = require("../src/server");
 const { User } = require("../src/models");
 const { sequelize } = require("../src/config");
 const { messages } = require("../src/config");
@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 describe("Auth Controller Integration Tests", () => {
   beforeAll(async () => {
     await sequelize.authenticate();
+    startServer();
   });
 
   afterEach(async () => {
@@ -17,6 +18,7 @@ describe("Auth Controller Integration Tests", () => {
 
   afterAll(async () => {
     await sequelize.close();
+    stopServer();
   });
 
   // Successful Registration Test

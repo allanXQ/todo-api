@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../src/server");
+const { app, startServer, stopServer } = require("../src/server");
 const { User, Todo } = require("../src/models");
 const { messages, sequelize } = require("../src/config");
 const bcrypt = require("bcrypt");
@@ -11,6 +11,7 @@ describe("Todo Controller Integration Tests", () => {
   beforeAll(async () => {
     try {
       await sequelize.authenticate();
+      startServer();
     } catch (error) {
       console.error("Unable to connect to the database:", error);
     }
@@ -44,6 +45,7 @@ describe("Todo Controller Integration Tests", () => {
   afterAll(async () => {
     try {
       await sequelize.close();
+      stopServer();
     } catch (error) {
       console.error("Error closing the database:", error);
     }
