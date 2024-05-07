@@ -12,7 +12,7 @@ describe("Auth Controller Integration Tests", () => {
   });
 
   afterEach(async () => {
-    await User.destroy({ where: {}, truncate: true });
+    await User.destroy({ where: {}, force: true });
   });
 
   afterAll(async () => {
