@@ -69,3 +69,5 @@ sequelize
 ["SIGINT", "SIGTERM"].forEach((signal) => {
   process.on(signal, () => gracefulShutdown(signal));
 });
+
+module.exports = app;
