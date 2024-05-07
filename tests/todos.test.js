@@ -77,7 +77,6 @@ describe("Todo Controller Integration Tests", () => {
     const response = await request(app)
       .get("/api/v1/todos")
       .set("Cookie", authCookie);
-    console.log(response.body);
     expect(response.status).toBe(200);
     expect(Array.isArray(response.body.data.data)).toBe(true);
     expect(response.body.data.data.length).toBeGreaterThanOrEqual(2);
